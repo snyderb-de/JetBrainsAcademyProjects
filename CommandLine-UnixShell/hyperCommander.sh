@@ -84,6 +84,23 @@ handle_file_operations() {
     done
 }
 
+# Function to handle finding and running executables
+find_and_run_executable() {
+    echo "Enter an executable name: "
+    read -p "" executable_name
+    executable_path=$(which "$executable_name")
+
+    if [[ -z "$executable_path" ]]; then
+        echo "The executable with that name does not exist!"
+    else
+        echo "Located in: $executable_path"
+        echo "Enter arguments: " 
+        read -p "" executable_args
+        echo "Output:"
+        $executable_path $executable_args
+    fi
+}
+
 while true; do
     print_menu
     read -p "> " option
@@ -120,7 +137,7 @@ while true; do
             done
             ;;
         4)
-            echo "Not implemented!"
+            find_and_run_executable
             ;;
         *)
             echo "Invalid option!"
