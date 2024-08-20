@@ -22,6 +22,13 @@ print_file_menu() {
     echo "---------------------------------------------------"
 }
 
+# Function to print the file options menu
+print_file_options_menu() {
+    echo "---------------------------------------------------------------------"
+    echo "| 0 Back | 1 Delete | 2 Rename | 3 Make writable | 4 Make read-only |"
+    echo "---------------------------------------------------------------------"
+}
+
 # Function to list files and directories
 list_files_and_directories() {
     echo "The list of files and directories:"
@@ -32,6 +39,48 @@ list_files_and_directories() {
         elif [[ -d "$item" ]]; then
             echo "D $item"
         fi
+    done
+}
+
+# Function to handle file operations
+handle_file_operations() {
+    local filename="$1"
+    while true; do
+        print_file_options_menu
+        read -p "> " file_option
+
+        case $file_option in
+            0)
+                return
+                ;;
+            1)
+                rm "$filename"
+                echo "$filename has been deleted."
+                return
+                ;;
+            2)
+                echo "Enter the new file name: " 
+                read -p "" new_filename
+                mv "$filename" "$new_filename"
+                echo "$filename has been renamed as $new_filename."
+                return
+                ;;
+            3)
+                chmod 666 "$filename"
+                echo "Permissions have been updated."
+                ls -l "$filename"
+                return
+                ;;
+            4)
+                chmod 664 "$filename"
+                echo "Permissions have been updated."
+                ls -l "$filename"
+                return
+                ;;
+            *)
+                echo "Invalid input!"
+                ;;
+        esac
     done
 }
 
@@ -64,7 +113,7 @@ while true; do
                 elif [[ -d "$file_option" ]]; then
                     cd "$file_option"
                 elif [[ -f "$file_option" ]]; then
-                    echo "Not implemented!"
+                    handle_file_operations "$file_option"
                 else
                     echo "Invalid input!"
                 fi
