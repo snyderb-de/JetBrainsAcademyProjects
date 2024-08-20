@@ -60,20 +60,13 @@ while true; do
                 if [[ "$file_option" == "0" ]]; then
                     break
                 elif [[ "$file_option" == "up" ]]; then
+                    cd ..
+                elif [[ -d "$file_option" ]]; then
+                    cd "$file_option"
+                elif [[ -f "$file_option" ]]; then
                     echo "Not implemented!"
                 else
-                    found=false
-                    for item in "${arr[@]}"; do
-                        if [[ "$file_option" == "$item" ]]; then
-                            echo "Not implemented!"
-                            found=true
-                            break
-                        fi
-                    done
-
-                    if [[ "$found" == false ]]; then
-                        echo "Invalid input!"
-                    fi
+                    echo "Invalid input!"
                 fi
             done
             ;;
