@@ -1,0 +1,13 @@
+Welcome to the basic calculator!
+Enter an arithmetic operation or type 'quit' to quit:
+10 - 5
+5
+Enter an arithmetic operation or type 'quit' to quit:
+5 * 5
+25
+Enter an arithmetic operation or type 'quit' to quit:
+25 + 25
+50
+Enter an arithmetic operation or type 'quit' to quit:
+quit
+Goodbye!
